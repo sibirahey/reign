@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sibi.reigntest.R
 import com.sibi.reigntest.data.entities.Post
+import com.sibi.reigntest.util.PostUtil
+import com.sibi.reigntest.util.toDate
 
 class PostAdapter(context: Context) :
     ListAdapter<Post, PostAdapter.PostViewHolder>(PostDiffCallback()) {
@@ -43,9 +45,15 @@ class PostAdapter(context: Context) :
                 }
             }
 
+            val createdAt = PostUtil.dateDiff(post.created_at.toDate())
+
             postTitle.text = title
             authorText.text =
-                itemView.context.getString(R.string.author_and_created, post.author, "")
+                itemView.context.getString(
+                    R.string.author_and_created,
+                    post.author,
+                    createdAt
+                )
         }
 
     }
