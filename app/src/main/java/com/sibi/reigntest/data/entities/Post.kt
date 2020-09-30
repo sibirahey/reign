@@ -5,5 +5,7 @@ data class Post(
     val story_title: String?,
     val title: String?,
     val author: String,
-    val created_at: String
+    val created_at: String,
+    val story_url: String?,
+    val url: String?
 )

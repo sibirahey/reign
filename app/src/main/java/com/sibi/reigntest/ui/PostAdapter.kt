@@ -12,7 +12,7 @@ import com.sibi.reigntest.data.entities.Post
 import com.sibi.reigntest.util.PostUtil
 import com.sibi.reigntest.util.toDate
 
-class PostAdapter(context: Context) :
+class PostAdapter(context: Context, private val onPostClicked: (Post) -> Unit) :
     ListAdapter<Post, PostAdapter.PostViewHolder>(PostDiffCallback()) {
     private val layoutInflater = LayoutInflater.from(context)
 
@@ -25,6 +25,9 @@ class PostAdapter(context: Context) :
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+        holder.itemView.setOnClickListener {
+            onPostClicked(item)
+        }
     }
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -3,4 +3,5 @@
     <string name="author_and_created">%1$s - %2$s</string>
     <string name="query">android</string>
     <string name="no_title">No Title</string>
+    <string name="not_valid_url">The post does not have a valid url</string>
 </resources>

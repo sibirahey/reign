@@ -1,9 +1,14 @@
 package com.sibi.reigntest.ui
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +42,31 @@ class PostListFragment : Fragment() {
     }
 
     private fun setupRecyclerView(view: View) {
-        adapter = PostAdapter(view.context)
+        adapter = PostAdapter(view.context) { post ->
+
+            val url = when {
+                post.story_url?.isNotEmpty() == true -> {
+                    post.story_url
+                }
+                post.url?.isNotEmpty() == true -> {
+                    post.url
+                }
+                else -> {
+                    Toast.makeText(context, getString(R.string.not_valid_url), Toast.LENGTH_SHORT)
+                        .show()
+                    return@PostAdapter
+                }
+            }
+
+            CustomTabsIntent.Builder().apply {
+                setStartAnimations(requireActivity(), R.anim.slide_in_from_bottom, 0)
+                setExitAnimations(requireActivity(), 0, R.anim.slide_out_to_bottom)
+                setShowTitle(true)
+                setToolbarColor(getColor(requireActivity(), R.color.colorPrimary))
+                build().launchUrl(requireActivity(), Uri.parse(url))
+            }
+
+        }
         post_recycler_view.adapter = adapter
         post_recycler_view.layoutManager = LinearLayoutManager(view.context)
     }

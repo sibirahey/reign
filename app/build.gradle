@@ -57,7 +57,6 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.28-alpha"
     kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
 
-
     //Hilt viewModel integration
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
     kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
@@ -74,6 +73,8 @@ dependencies {
     //Recyclerview
     implementation "androidx.recyclerview:recyclerview:1.1.0"
 
+    //Chrome Custom Tab
+    implementation "androidx.browser:browser:1.2.0"
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
