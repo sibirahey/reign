@@ -33,7 +33,7 @@ class PostListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.getPosts()
+        viewModel.getPosts(getString(R.string.query))
     }
 
     private fun setupRecyclerView(view: View) {

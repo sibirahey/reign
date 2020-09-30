@@ -17,9 +17,9 @@ class PostViewModel @ViewModelInject constructor(
     private val postMutableLiveData = MutableLiveData<List<Post>>()
     val postLiveData: LiveData<List<Post>> = postMutableLiveData
 
-    fun getPosts() {
+    fun getPosts(query: String) {
         viewModelScope.launch {
-            val response = postRemoteDataSource.getPostSearchByDate("android")
+            val response = postRemoteDataSource.getPostSearchByDate(query)
             if (response.isSuccessful) {
                 response.body()?.let {
                     postMutableLiveData.value = it.hits

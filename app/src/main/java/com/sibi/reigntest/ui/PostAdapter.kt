@@ -39,12 +39,13 @@ class PostAdapter(context: Context) :
                     post.title
                 }
                 else -> {
-                    "NO TITLE"
+                    itemView.context.getString(R.string.no_title)
                 }
             }
 
             postTitle.text = title
-            authorText.text = "${post.author} - "
+            authorText.text =
+                itemView.context.getString(R.string.author_and_created, post.author, "")
         }
 
     }
