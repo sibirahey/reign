@@ -71,6 +71,9 @@ dependencies {
     //Fragment extension
     implementation "androidx.fragment:fragment-ktx:1.2.5"
 
+    //Recyclerview
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

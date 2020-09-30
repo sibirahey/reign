@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Reign test</string>
+    <string name="author_and_created">%1$s - %2$s</string>
 </resources>
