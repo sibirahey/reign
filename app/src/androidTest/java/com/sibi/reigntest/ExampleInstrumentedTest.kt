@@ -1,4 +1,4 @@
-package com.sibi.regintest
+package com.sibi.reigntest
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

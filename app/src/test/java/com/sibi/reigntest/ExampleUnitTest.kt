@@ -1,4 +1,4 @@
-package com.sibi.regintest
+package com.sibi.reigntest
 
 import org.junit.Test
 
