@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -34,10 +33,17 @@ class PostListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView(view)
         setupObservers()
+        swiperefresh.setOnRefreshListener {
+            getPosts()
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        getPosts()
+    }
+
+    private fun getPosts() {
         viewModel.getPosts(getString(R.string.query))
     }
 
@@ -75,6 +81,7 @@ class PostListFragment : Fragment() {
         viewModel.postLiveData.observe(viewLifecycleOwner) { list ->
             list?.let {
                 adapter.submitList(it)
+                swiperefresh.isRefreshing = false
             }
         }
     }
