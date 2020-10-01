@@ -50,29 +50,16 @@ class PostListFragment : Fragment() {
 
     private fun setupRecyclerView(view: View) {
         adapter = PostAdapter(view.context) { post ->
-
-            val url = when {
-                post.story_url?.isNotEmpty() == true -> {
-                    post.story_url
+            post.url?.let {
+                CustomTabsIntent.Builder().apply {
+                    setStartAnimations(requireActivity(), R.anim.slide_in_from_bottom, 0)
+                    setExitAnimations(requireActivity(), 0, R.anim.slide_out_to_bottom)
+                    setShowTitle(true)
+                    setToolbarColor(getColor(requireActivity(), R.color.colorPrimary))
+                    build().launchUrl(requireActivity(), Uri.parse(it))
                 }
-                post.url?.isNotEmpty() == true -> {
-                    post.url
-                }
-                else -> {
-                    Toast.makeText(context, getString(R.string.not_valid_url), Toast.LENGTH_SHORT)
-                        .show()
-                    return@PostAdapter
-                }
-            }
-
-            CustomTabsIntent.Builder().apply {
-                setStartAnimations(requireActivity(), R.anim.slide_in_from_bottom, 0)
-                setExitAnimations(requireActivity(), 0, R.anim.slide_out_to_bottom)
-                setShowTitle(true)
-                setToolbarColor(getColor(requireActivity(), R.color.colorPrimary))
-                build().launchUrl(requireActivity(), Uri.parse(url))
-            }
-
+            } ?: Toast.makeText(context, getString(R.string.not_valid_url), Toast.LENGTH_SHORT)
+                .show()
         }
         post_recycler_view.adapter = adapter
         post_recycler_view.layoutManager = LinearLayoutManager(view.context)

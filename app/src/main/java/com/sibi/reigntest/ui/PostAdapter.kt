@@ -8,12 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sibi.reigntest.R
-import com.sibi.reigntest.data.entities.Post
-import com.sibi.reigntest.util.PostUtil
-import com.sibi.reigntest.util.toDate
+import com.sibi.reigntest.data.repository.PostDomainModel
 
-class PostAdapter(context: Context, private val onPostClicked: (Post) -> Unit) :
-    ListAdapter<Post, PostAdapter.PostViewHolder>(PostDiffCallback()) {
+class PostAdapter(context: Context, private val onPostClicked: (PostDomainModel) -> Unit) :
+    ListAdapter<PostDomainModel, PostAdapter.PostViewHolder>(PostDiffCallback()) {
     private val layoutInflater = LayoutInflater.from(context)
 
 
@@ -34,28 +32,13 @@ class PostAdapter(context: Context, private val onPostClicked: (Post) -> Unit) :
         private val postTitle = itemView.findViewById<TextView>(R.id.story_title_tv)
         private val authorText = itemView.findViewById<TextView>(R.id.author_and_created_tv)
 
-        fun bind(post: Post) {
-
-            val title = when {
-                post.story_title?.isNotEmpty() == true -> {
-                    post.story_title
-                }
-                post.title?.isNotEmpty() == true -> {
-                    post.title
-                }
-                else -> {
-                    itemView.context.getString(R.string.no_title)
-                }
-            }
-
-            val createdAt = PostUtil.dateDiff(post.created_at.toDate())
-
-            postTitle.text = title
+        fun bind(post: PostDomainModel) {
+            postTitle.text = post.title ?: itemView.context.getString(R.string.no_title)
             authorText.text =
                 itemView.context.getString(
                     R.string.author_and_created,
                     post.author,
-                    createdAt
+                    post.createdAt
                 )
         }
 

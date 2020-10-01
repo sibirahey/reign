@@ -5,14 +5,13 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.sibi.reigntest.data.entities.Post
 
 @Dao
 interface PostDao {
 
-    @Query("select * from post order by created_at desc")
-    fun getPost(): LiveData<List<Post>>
+    @Query("select * from PostDatabaseEntity order by created_at desc")
+    fun getPost(): LiveData<List<PostDatabaseEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(posts: List<Post>)
+    suspend fun insertAll(postDatabaseEntity: List<PostDatabaseEntity>)
 }

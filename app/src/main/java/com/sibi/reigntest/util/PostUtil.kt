@@ -31,4 +31,16 @@ object PostUtil {
         }
     }
 
+    fun firsSecondOrNull(first: String?, second: String?): String? {
+        return when {
+            first?.isNotEmpty() == true -> {
+                first
+            }
+            second?.isNotEmpty() == true -> {
+                second
+            }
+            else -> null
+        }
+    }
+
 }
