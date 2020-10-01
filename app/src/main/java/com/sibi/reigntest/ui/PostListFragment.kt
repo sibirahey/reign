@@ -78,11 +78,14 @@ class PostListFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.postLiveData.observe(viewLifecycleOwner) { list ->
+        viewModel.posts.observe(viewLifecycleOwner) { list ->
             list?.let {
                 adapter.submitList(it)
                 swiperefresh.isRefreshing = false
             }
+        }
+        viewModel.networkResponseLiveData.observe(viewLifecycleOwner) {
+            swiperefresh.isRefreshing = false
         }
     }
 

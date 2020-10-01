@@ -5,25 +5,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sibi.reigntest.data.entities.Post
-import com.sibi.reigntest.data.remote.PostRemoteDataSource
+import com.sibi.reigntest.data.repository.PostRepository
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class PostViewModel @ViewModelInject constructor(
-    private val postRemoteDataSource: PostRemoteDataSource
+    private val postRepository: PostRepository
 ) :
     ViewModel() {
 
-    private val postMutableLiveData = MutableLiveData<List<Post>>()
-    val postLiveData: LiveData<List<Post>> = postMutableLiveData
+    private val networkResponseMutableLiveData = MutableLiveData<Boolean>()
+    val networkResponseLiveData: LiveData<Boolean> = networkResponseMutableLiveData
+
+    val posts = postRepository.posts
 
     fun getPosts(query: String) {
         viewModelScope.launch {
-            val response = postRemoteDataSource.getPostSearchByDate(query)
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    postMutableLiveData.value = it.hits
-                }
+            try {
+                postRepository.refreshPosts(query)
+                networkResponseMutableLiveData.value = true
+            } catch (networkError: IOException) {
+                networkResponseMutableLiveData.value = false
             }
         }
     }
