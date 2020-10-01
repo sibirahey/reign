@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sibi.reigntest.data.repository.PostRepository
+import com.sibi.reigntest.util.NetworkStatus
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -14,8 +15,8 @@ class PostViewModel @ViewModelInject constructor(
 ) :
     ViewModel() {
 
-    private val networkResponseMutableLiveData = MutableLiveData<Boolean>()
-    val networkResponseLiveData: LiveData<Boolean> = networkResponseMutableLiveData
+    private val networkResponseMutableLiveData = MutableLiveData<NetworkStatus>()
+    val networkResponseLiveData: LiveData<NetworkStatus> = networkResponseMutableLiveData
 
     val posts = postRepository.posts
 
@@ -23,9 +24,9 @@ class PostViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             try {
                 postRepository.refreshPosts(query)
-                networkResponseMutableLiveData.value = true
+                networkResponseMutableLiveData.value = NetworkStatus.SUCCESSFUL
             } catch (networkError: IOException) {
-                networkResponseMutableLiveData.value = false
+                networkResponseMutableLiveData.value = NetworkStatus.FAILURE
             }
         }
     }

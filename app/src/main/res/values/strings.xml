@@ -4,4 +4,5 @@
     <string name="query">android</string>
     <string name="no_title">No Title</string>
     <string name="not_valid_url">The post does not have a valid url</string>
+    <string name="network_error">Network Error</string>
 </resources>
