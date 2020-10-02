@@ -35,7 +35,7 @@ fun PostDatabaseEntity.asDomainModel(): PostDomainModel {
 
 fun PostRemoteDTO.asDatabaseEntity(): PostDatabaseEntity {
     return PostDatabaseEntity(
-        story_id = this.story_id,
+        story_id = this.objectID,
         story_title = this.story_title,
         title = this.title,
         author = this.author,
