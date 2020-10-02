@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sibi.reigntest.R
@@ -31,6 +32,7 @@ class PostAdapter(context: Context, private val onPostClicked: (PostDomainModel)
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val postTitle = itemView.findViewById<TextView>(R.id.story_title_tv)
         private val authorText = itemView.findViewById<TextView>(R.id.author_and_created_tv)
+        val foregroundView = itemView.findViewById<ConstraintLayout>(R.id.view_foreground)
         var id: Long = 0
 
         fun bind(post: PostDomainModel) {
