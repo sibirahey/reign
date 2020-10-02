@@ -10,6 +10,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sibi.reigntest.R
 import com.sibi.reigntest.util.NetworkStatus
@@ -63,6 +64,11 @@ class PostListFragment : Fragment() {
         }
         post_recycler_view.adapter = adapter
         post_recycler_view.layoutManager = LinearLayoutManager(view.context)
+        val postCallbackTouchHelper = PostCallbackTouchHelper{
+            viewModel.deleteItem(it)
+        }
+        val itemTouchHelper = ItemTouchHelper(postCallbackTouchHelper)
+        itemTouchHelper.attachToRecyclerView(post_recycler_view)
     }
 
     private fun setupObservers() {

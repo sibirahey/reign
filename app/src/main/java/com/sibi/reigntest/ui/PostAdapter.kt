@@ -31,8 +31,10 @@ class PostAdapter(context: Context, private val onPostClicked: (PostDomainModel)
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val postTitle = itemView.findViewById<TextView>(R.id.story_title_tv)
         private val authorText = itemView.findViewById<TextView>(R.id.author_and_created_tv)
+        var id: Long = 0
 
         fun bind(post: PostDomainModel) {
+            this.id = post.id
             postTitle.text = post.title ?: itemView.context.getString(R.string.no_title)
             authorText.text =
                 itemView.context.getString(

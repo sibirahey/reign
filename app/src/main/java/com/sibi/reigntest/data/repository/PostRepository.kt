@@ -3,6 +3,7 @@ package com.sibi.reigntest.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.sibi.reigntest.data.local.PostDao
+import com.sibi.reigntest.data.local.PostDatabaseEntityUpdate
 import com.sibi.reigntest.data.remote.PostRemoteDataSource
 import com.sibi.reigntest.util.asDatabaseEntity
 import com.sibi.reigntest.util.asDomainModel
@@ -30,6 +31,12 @@ class PostRepository @Inject constructor(
                     localDataSource.insertAll(it.hits.map { postRemoteDTO -> postRemoteDTO.asDatabaseEntity() })
                 }
             }
+        }
+    }
+
+    suspend fun deleteItem(id: Long) {
+        withContext(Dispatchers.IO) {
+            localDataSource.update(PostDatabaseEntityUpdate(id))
         }
     }
 

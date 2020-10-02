@@ -31,4 +31,10 @@ class PostViewModel @ViewModelInject constructor(
         }
     }
 
+    fun deleteItem(id: Long){
+        viewModelScope.launch {
+            postRepository.deleteItem(id)
+        }
+    }
+
 }
